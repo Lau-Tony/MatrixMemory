@@ -1,0 +1,37 @@
+#game-board 
+{
+    background-color: rgb(70, 27, 27);
+    display: block;
+    height: 500px;
+    width: 500px;
+    margin: auto;
+}
+
+#game-title
+{
+    text-align: center;
+    font-size: 2em;
+}
+
+html 
+{
+    background-color: pink;
+}
+
+.tile
+{
+    background-color: rgb(148, 66, 66);
+    display: block;
+    height: 90px;
+    width: 90px;
+    margin: 5px;
+    border-radius: 8px;
+    float: left;
+}   
+
+#start-button 
+{
+    font-size: 20px;
+    border-radius: 8px;
+
+}
