@@ -20,6 +20,7 @@ function initialize()
     document.body.appendChild(element);
 
     layTiles(25);
+    randomize(5, 25);
     
 }
 
@@ -42,13 +43,16 @@ function randomize(numOfTrue, numOfTile)
     for (let tileID = 0; tileID < numOfTile; tileID++) 
     {
         tileChart[tileID] = tileID;
+        gameObjects.tileBool[tileID] = false;
+
     }
     for (let i = 0; i < numOfTrue; i++) 
     {
-        let TTile = Math.random() * numOfTile;
+        let TTile = Math.round(Math.random() * numOfTile);
         trueTiles[i] = TTile;
         tileChart[TTile] = tileChart[numOfTile - i];
         tileChart[numOfTile - i] = TTile;
+        gameObjects.tileBool[TTile] = true;
     }
 }
 
