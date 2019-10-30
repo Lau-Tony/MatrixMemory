@@ -28,20 +28,17 @@ function initialize()
 
 function startGame() 
 {
-    // while (true) 
-    // {
-        randomize();
-        layTiles();
-        setTrueTile();
-        setTimeout(showTrueTiles, 500);
-        setTimeout(hideTrueTiles, 3000);
-        // for (let i = 0; i < numOfTile; i++) 
-        // {
-            
-        // }
-        
-    // }
+    randomize();
+    layTiles();
+    setTrueTile();
+    setTimeout(showTrueTiles, 500);
+    setTimeout(hideTrueTiles, 3000);
+    setTimeout(rotateBoard, 4000);
+}
 
+function rotateBoard() 
+{
+    document.getElementById("game-board").style.transform = "rotate(90deg)";
 }
 
 function showTrueTiles() 
@@ -49,6 +46,7 @@ function showTrueTiles()
     for (let i = 0; i < gameObjects.numOfTrue; i++)
     {
         let element = document.getElementById(gameObjects.trueTiles[i]).childNodes;
+        // console.log(element[0]);
         element[0].style.transform = "rotateY(180deg)";
     }
 }
@@ -60,6 +58,13 @@ function hideTrueTiles()
         let element = document.getElementById(gameObjects.trueTiles[i]).childNodes;
         element[0].style.transform = "rotateY(0deg)";
     }
+}
+
+function showTile(event) 
+{
+    let element = event.target;
+    element = element.parentNode;
+    element.style.transform = "rotateY(180deg)";
 }
 
 function layTiles() 
@@ -76,7 +81,7 @@ function setTrueTile()
 {
     for (let i = 0; i < gameObjects.numOfTrue; i++) 
     {
-        console.log(gameObjects.trueTiles[i] + "-back");
+        // console.log(gameObjects.trueTiles[i] + "-back");
         document.getElementById(gameObjects.trueTiles[i] + "-back").className = "tile-back-true";
     }
 }
@@ -94,6 +99,7 @@ function createTile(i)
     let tileFront = document.createElement("div");
     tileFront.setAttribute("id", i + "-front");
     tileFront.setAttribute("class", "tile-front");
+    tileFront.setAttribute("onclick", "showTile(event)");
 
     let tileBack = document.createElement("div");
     tileBack.setAttribute("id", i + "-back");
@@ -132,8 +138,6 @@ function randomize()
         gameObjects.tileBool[tileChart[TTile]] = true;
     }
 }
-
-
 
 
 
