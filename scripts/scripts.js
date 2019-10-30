@@ -24,7 +24,6 @@ function initialize()
 
     startGame();
     
-    
 }
 
 function startGame() 
@@ -34,7 +33,8 @@ function startGame()
         randomize();
         layTiles();
         setTrueTile();
-        showTrueTiles();
+        setTimeout(showTrueTiles, 500);
+        setTimeout(hideTrueTiles, 3000);
         // for (let i = 0; i < numOfTile; i++) 
         // {
             
@@ -46,11 +46,20 @@ function startGame()
 
 function showTrueTiles() 
 {
-    // for (let i = 0; i < numOfTrue; i++)
-    // {
-    //     let element = document.getElementById(gameObjects.numOfTrue[i].);
-    //     element.setAttribute.
-    // }
+    for (let i = 0; i < gameObjects.numOfTrue; i++)
+    {
+        let element = document.getElementById(gameObjects.trueTiles[i]).childNodes;
+        element[0].style.transform = "rotateY(180deg)";
+    }
+}
+
+function hideTrueTiles() 
+{
+    for (let i = 0; i < gameObjects.numOfTrue; i++)
+    {
+        let element = document.getElementById(gameObjects.trueTiles[i]).childNodes;
+        element[0].style.transform = "rotateY(0deg)";
+    }
 }
 
 function layTiles() 
