@@ -34,6 +34,7 @@ function startGame()
         randomize();
         layTiles();
         setTrueTile();
+        showTrueTiles();
         // for (let i = 0; i < numOfTile; i++) 
         // {
             
@@ -47,8 +48,8 @@ function showTrueTiles()
 {
     // for (let i = 0; i < numOfTrue; i++)
     // {
-    //     let element = document.getElementById(gameObjects.numOfTrue[i]);
-    //     element.
+    //     let element = document.getElementById(gameObjects.numOfTrue[i].);
+    //     element.setAttribute.
     // }
 }
 
@@ -66,8 +67,8 @@ function setTrueTile()
 {
     for (let i = 0; i < gameObjects.numOfTrue; i++) 
     {
-        console.log(gameObjects.trueTiles[i]+"-back");
-        document.getElementById(gameObjects.trueTiles[i]+"-back").className = "tile-back-true";
+        console.log(gameObjects.trueTiles[i] + "-back");
+        document.getElementById(gameObjects.trueTiles[i] + "-back").className = "tile-back-true";
     }
 }
 
@@ -102,15 +103,23 @@ function randomize()
     for (let tileID = 0; tileID < gameObjects.numOfTile; tileID++) 
     {
         tileChart[tileID] = tileID;
+        // console.log("tileChart[tileID] = tileID " + tileChart[tileID] + " " + tileID);
         gameObjects.tileBool[tileID] = false;
 
     }
     for (let i = 0; i < gameObjects.numOfTrue; i++) 
     {
         let TTile = Math.trunc(Math.random() * (gameObjects.numOfTile - i));
+        // console.log(i + " " + TTile);
+        // console.log("gameObjects.trueTiles[i] = tileChart[TTile] " + gameObjects.trueTiles[i] + " " + tileChart[TTile]);
         gameObjects.trueTiles[i] = tileChart[TTile];
-        tileChart[TTile] = tileChart[gameObjects.numOfTile - i];
-        tileChart[gameObjects.numOfTile - i] = gameObjects.trueTiles[i];
+        // console.log("tileChart[TTile] = tileChart[gameObjects.numOfTile - 1 - i] " + tileChart[TTile] + " " + tileChart[gameObjects.numOfTile - i - 1]);
+        tileChart[TTile] = tileChart[gameObjects.numOfTile - i - 1];
+        // console.log("tileChart[gameObjects.numOfTile - i - 1] = gameObjects.trueTiles[i] " + tileChart[gameObjects.numOfTile - i - 1] + " " + gameObjects.trueTiles[i]);
+        tileChart[gameObjects.numOfTile - i - 1] = gameObjects.trueTiles[i];
+        // console.log("gameObjects.trueTiles[i] " + gameObjects.trueTiles[i]);
+        // console.log("tileChart[TTile] " + tileChart[TTile]);
+        // console.log("tileChart[gameObjects.numOfTile - i - 1] " + tileChart[gameObjects.numOfTile - i - 1]);
         gameObjects.tileBool[tileChart[TTile]] = true;
     }
 }
