@@ -49,7 +49,7 @@ function newRoundSettings()
 {
     if (gameObjects.successFlag) 
     {
-        if(gameObjects.numOfTrue < gameObjects.columns - 2 || gameObjects.numOfTrue < gameObjects.rows - 2)
+        if (gameObjects.numOfTrue < gameObjects.columns || gameObjects.numOfTrue < gameObjects.rows)
         {
             choice = 1;
         } else 
@@ -63,6 +63,24 @@ function newRoundSettings()
             break;
             case 1:
                 gameObjects.numOfTrue++;
+            break;
+        }
+    } else 
+    {
+        if(gameObjects.numOfTrue < gameObjects.columns - 2 || gameObjects.numOfTrue <  gameObjects.rows - 2)
+        {
+            choice = 1;
+        } else 
+        {
+            choice = 0;
+        }
+        switch(choice)
+        {
+            case 0: 
+                removeOneRowOrColumn();
+            break;
+            case 1:
+                gameObjects.numOfTrue--;
             break;
         }
     }
@@ -137,16 +155,16 @@ function removeOneRowOrColumn()
         gameObjects.rows--;
     } else 
     {
-        gameObjects.column--;
+        gameObjects.columns--;
     }
 }
 
 function addOneRowOrColumn() 
 {
-    gameObjects.numOfTrue -= 1;
     if(gameObjects.columns <= gameObjects.rows) 
     {
         gameObjects.columns++;
+        gameObjects.numOfTrue -= 1;
     } else 
     {
         gameObjects.rows++;
@@ -166,8 +184,7 @@ function showTile(event)
     }
     if(gameObjects.successFlag && checkWrong == false) 
     {
-        gameObjects.successFlag = false;
-        removeOneRowOrColumn();
+        gameObjects.successFlag = false;        
     }
     if (gameObjects.numOfClicks == gameObjects.numOfTrue)
     {
