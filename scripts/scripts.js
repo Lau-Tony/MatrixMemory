@@ -14,10 +14,29 @@ let gameObjects =
 
 function initialize() 
 {
+    window.onbeforeunload = function(event) 
+    {
+        event.returnValue = "Are you sure you want to leave?";
+    };
     let element = document.createElement("p");
     element.setAttribute("id", "game-title");
     element.innerText = "Welcome to Matrix Memory";
     document.body.appendChild(element);
+
+    element = document.createElement("div");
+    element.setAttribute("id", "menu");
+    document.body.appendChild(element);
+
+    element = document.createElement("p");
+    element.setAttribute("id", "score-board");
+    element.innerText = "Score: 0";
+    document.body.appendChild(element);
+
+    element = document.createElement("button");
+    element.setAttribute("id", "terminate-button");
+    element.innerText = "End Game";
+    document.getElementById("menu").appendChild(element);
+
 
     element = document.createElement("div");
     element.setAttribute("id", "game-board");
@@ -26,7 +45,6 @@ function initialize()
     document.body.appendChild(element);
 
     startGame();
-    
 }
 
 function startGame() 
@@ -49,13 +67,11 @@ function newRoundSettings()
 {
     if (gameObjects.successFlag) 
     {
-        if (gameObjects.numOfTrue < gameObjects.columns || gameObjects.numOfTrue < gameObjects.rows)
-        {
-            choice = 1;
-        } else 
-        {
+        (gameObjects.numOfTrue < gameObjects.columns) ?
+            choice = 1
+            : 
             choice = 0;
-        }
+        
         switch(choice)
         {
             case 0: 
@@ -67,7 +83,7 @@ function newRoundSettings()
         }
     } else 
     {
-        if(gameObjects.numOfTrue < gameObjects.columns - 2 || gameObjects.numOfTrue <  gameObjects.rows - 2)
+        if (gameObjects.numOfTrue > gameObjects.columns - 2)
         {
             choice = 1;
         } else 
@@ -152,10 +168,10 @@ function removeOneRowOrColumn()
 {
     if(gameObjects.columns <= gameObjects.rows) 
     {
-        gameObjects.rows--;
+        gameObjects.columns--;
     } else 
     {
-        gameObjects.columns--;
+        gameObjects.rows--;
     }
 }
 
@@ -171,21 +187,35 @@ function addOneRowOrColumn()
     }
 }
 
+function checkTile(element) 
+{
+    let checkWrong = false;
+    for (let i = 0; i < gameObjects.numOfTrue; i++) 
+    {
+        if (gameObjects.trueTiles[i] == element.parentNode.id)
+        {
+            checkWrong = true;
+            gameObjects.score++;
+            document.getElementById("score-board").innerText = "Score: " + gameObjects.score;
+        } 
+    }
+    if (!checkWrong) 
+    {
+        gameObjects.score--;  
+        document.getElementById("score-board").innerText = "Score: " + gameObjects.score;
+    }
+    if (gameObjects.successFlag && checkWrong == false) 
+    {
+        gameObjects.successFlag = false;        
+    }
+} 
+
 function showTile(event) 
 {
     gameObjects.numOfClicks++;
     let element = event.target.parentNode;
     element.style.transform = "rotateY(180deg)";
-    let checkWrong = false;
-    for (let i = 0; i < gameObjects.numOfTrue; i++) 
-    {
-        if (gameObjects.trueTiles[i] == element.parentNode.id)
-            checkWrong = true;
-    }
-    if(gameObjects.successFlag && checkWrong == false) 
-    {
-        gameObjects.successFlag = false;        
-    }
+    checkTile(element);
     if (gameObjects.numOfClicks == gameObjects.numOfTrue)
     {
         enableClicks();
@@ -217,7 +247,7 @@ function enableClicks()
     {
         for (let i = 0; i < gameObjects.numOfTile; i++) 
         {
-        document.getElementById(i + "-front").setAttribute("onclick", "showTile(event)");
+            document.getElementById(i + "-front").setAttribute("onclick", "showTile(event)");
         }
         gameObjects.clickStatus = 1;
         gameObjects.numOfClicks = 0;

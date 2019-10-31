@@ -6,10 +6,29 @@
     transition: 0.6s;
 }
 
+#menu 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #game-title
 {
     text-align: center;
     font-size: 2em;
+}
+
+#score-board
+{
+    text-align: center;
+}
+
+#terminate-button 
+{
+    justify-content: center;
+    text-align: center;
+    margin: auto;
 }
 
 html 
