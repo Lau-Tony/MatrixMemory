@@ -2,8 +2,6 @@
 {
     background-color: rgb(70, 27, 27);
     display: block;
-    height: 250px;
-    width: 250px;
     margin: auto;
     transition: 0.6s;
 }
