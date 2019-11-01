@@ -9,7 +9,7 @@ let gameObjects =
     numOfClicks: 0,
     clickStatus: 0,
     successFlag: true,
-    score: 1
+    score: 0
 };
 
 function initialize() 
@@ -32,11 +32,23 @@ function initialize()
     element.innerText = "Score: 0";
     document.body.appendChild(element);
 
-    element = document.createElement("button");
-    element.setAttribute("id", "terminate-button");
-    element.innerText = "End Game";
+    element = document.createElement("form");
+    element.setAttribute("id", "terminate-form");
+    element.setAttribute("action", "summary.html");
+    element.setAttribute("method", "post");
     document.getElementById("menu").appendChild(element);
 
+    element = document.createElement("input");
+    element.setAttribute("id", "terminate-input");
+    element.setAttribute("name", "score");
+    element.setAttribute("value", gameObjects.score);
+    document.getElementById("terminate-form").appendChild(element);
+
+    element = document.createElement("input");
+    element.setAttribute("id", "terminate-button");
+    element.setAttribute("value", "End Game");
+    element.setAttribute("type", "submit");
+    document.getElementById("terminate-form").appendChild(element);
 
     element = document.createElement("div");
     element.setAttribute("id", "game-board");
